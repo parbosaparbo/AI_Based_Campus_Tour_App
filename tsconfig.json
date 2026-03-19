@@ -12,6 +12,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ]
+    "expo-env.d.ts",
+    "nativewind-env.d.ts"
+, "app/(tab)/_layout.jsx", "app/(tab)/ChatBot.jsx", "app/(tab)/index.tsx", "app/(tab)/MapView.jsx", "app/(tab)/ProfileTab.jsx", "app/_layout.js", "src/app/(tab)/index.jsx", "src/app/(tab)/ChatBot.jsx", "src/app/(tab)/_layout.jsx", "src/app/(tab)/MapView.jsx", "src/app/components/Fix-UI/Navbar.jsx", "src/app/components/Fix-UI/TopSpace.jsx", "src/app/components/Home-components/AISearchBox.jsx", "src/app/components/Home-components/SearchBox.jsx", "src/app/components/Home-components/ShortsLinks.jsx", "src/app/components/Home-components/WelcomeCard.jsx", "src/app/components/ProofileComponents/ContentLinks.jsx", "src/app/components/ProofileComponents/Logo.jsx"  ]
 }
