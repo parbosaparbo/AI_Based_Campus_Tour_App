@@ -22,7 +22,7 @@
       //   "googleMaps": {
       //     "apiKey": "YOUR_API_KEY"
       //   }
-      },
+      //},
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
