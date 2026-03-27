@@ -4,7 +4,7 @@ import { Alert, Pressable, Text, View } from "react-native";
 
 const ContentLinks = (props) => {
   return (
-    <Pressable onPress={() => Alert.alert("pressed")}>
+    <Pressable >
       <View className="flex-row items-center ">
         <View className="w-full bg-gray-800 rounded-3xl py-4 px-5 my-3 flex-row items-center justify-between">
           <View className="flex-row items-center">

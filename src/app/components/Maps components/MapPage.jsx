@@ -15,13 +15,12 @@ const MapPage = ({ height = 650, width = "100%" }) => {
       }}
       className="bg-black px-1  pb-12"
     >
-      {(Platform.OS === "web" ||
-        // Platform.OS === "ios" ||
+      {(Platform.OS === "ios" ||
         Platform.OS === "android") && (
         <View className="flex-1 w-full rounded-lg overflow-hidden">
           <MapView
             style={{ width: "100%", height: "100%" }}
-            mapType="hybridFlyover"
+            mapType={Platform.OS === "ios" ? "hybridFlyover" : "hybrid"}
             initialRegion={{
               latitude: 26.090829,
               longitude: 91.725019,
@@ -29,11 +28,11 @@ const MapPage = ({ height = 650, width = "100%" }) => {
               longitudeDelta: 0.01,
             }}
           >
-            {/* top of the map  */}
-            <View className="py-3 px-2">
-              {/* <MapHead /> */}
+            {/* top of the map
+            <View className="py-8 px-2">
+               <MapHead />
               <SearchBox/>
-            </View>
+            </View> */}
             <Marker
               coordinate={{ latitude: 26.090829, longitude: 91.725019 }}
               title="SITM GHY"
