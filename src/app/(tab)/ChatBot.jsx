@@ -12,7 +12,7 @@ import {
 import TopSpace from "../components/Fix-UI/TopSpace";
 
 const ai = new GoogleGenAI({
-  apiKey: "Api key", // 🔴 replace this
+  apiKey: "Api key", // api key here
 });
 
 export default function ChatBot() {
@@ -22,7 +22,6 @@ export default function ChatBot() {
   const [input, setInput] = useState("");
   const [history, setHistory] = useState([]);
 
-  // 🔥 Chat function (Gemini)
   const chatting = async (userproblem) => {
     const newHistory = [
       ...history,
@@ -55,7 +54,6 @@ You are a AI Assistant. context here
     }
   };
 
-  // 🔥 Send message
   const sendMessage = async () => {
     if (!input.trim()) return;
 
@@ -70,7 +68,6 @@ You are a AI Assistant. context here
     const userInput = input;
     setInput("");
 
-    // temporary bot message
     const botId = Date.now().toString() + "bot";
 
     setMessages((prev) => [
@@ -80,13 +77,11 @@ You are a AI Assistant. context here
 
     const reply = await chatting(userInput);
 
-    // update bot message
     setMessages((prev) =>
       prev.map((msg) => (msg.id === botId ? { ...msg, text: reply } : msg)),
     );
   };
 
-  // 🔥 UI render
   const renderItem = ({ item }) => {
     const isUser = item.sender === "user";
 
