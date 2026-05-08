@@ -1,48 +1,52 @@
-import { View, Text,ImageBackground, Alert } from 'react-native'
+import { View, Text, ImageBackground, Alert, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { Pressable } from 'react-native'
+import { useRouter } from 'expo-router'
 
 const DirectClick = () => {
+    const router = useRouter();
     const features = [
         {
             title: "Library",
             bg: require('../../../../assets/images/wallpaper.webp'),
-            desc:"Central library with 1000's of Boooks.",
+            desc:"Central library with 1000's of Books.",
         },
         {
-            title:"CSE Lap",
+            title:"CSE Lab",
             bg: require("../../../../assets/images/wallpaper.webp"),
-            desc:"cse lap for students here to work withaejh e",
+            desc:"CSE lab for students to work and study.",
         },
         {
-            title: "Library",
+            title: "Playground",
             bg: require('../../../../assets/images/wallpaper.webp'),
-            desc:"Central library with 1000's of Boooks.",
+            desc:"Main sports and recreation area.",
         },
         {
-            title:"CSE Lap",
+            title:"Boy's Hostel",
             bg: require("../../../../assets/images/wallpaper.webp"),
-            desc:"cse lap for students here to work withaejh e",
+            desc:"Student accommodation facility.",
         },
     ]
   return (
-    <Pressable onPress={()=> Alert.alert("Press it.")}>
-        <View className=" flex mx-4 my-6">
+        <View className="flex mx-4 my-6">
+            <Text className="text-white text-xl font-bold mb-4">Popular Spots</Text>
             {features.map((item, index)=>(
-                <View className='my-4'>
+                <TouchableOpacity 
+                    key={index} 
+                    className='my-4 rounded-3xl overflow-hidden shadow-lg elevation-5'
+                    onPress={() => router.push(`/SpotDetails?title=${encodeURIComponent(item.title)}`)}
+                >
                     <ImageBackground
                     source={item.bg}
                     resizeMode='cover'
-                    className="h-32 rounded-t-3xl"
+                    className="h-32"
                     >
-                        <Text className='text-xl font-extrabold px-5 py-2'>{item.title}</Text>
+                        <Text className='text-xl font-extrabold px-5 py-2 text-white bg-black/40 self-start mt-2 ml-2 rounded-lg'>{item.title}</Text>
 
                     </ImageBackground>
-                    <Text className='text-white bg-zinc-800 rounded-b-xl px-5 py-3'>{item.desc}</Text>
-                </View>
+                    <Text className='text-white bg-zinc-800 px-5 py-3'>{item.desc}</Text>
+                </TouchableOpacity>
             ))}
         </View>
-    </Pressable>
   )
 }
 

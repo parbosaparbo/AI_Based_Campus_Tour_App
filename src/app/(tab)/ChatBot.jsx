@@ -1,5 +1,4 @@
-import { GoogleGenAI } from "@google/genai";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   FlatList,
   KeyboardAvoidingView,
@@ -9,11 +8,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useRouter } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import TopSpace from "../components/Fix-UI/TopSpace";
-
-const ai = new GoogleGenAI({
-  apiKey: "AIzaSyDWFLsY-q-HdSNkk9RjeLLmXOTaXaa-cSU", // 🔴 replace this
-});
 
 export default function ChatBot() {
   const [messages, setMessages] = useState([
@@ -21,103 +18,86 @@ export default function ChatBot() {
   ]);
   const [input, setInput] = useState("");
   const [history, setHistory] = useState([]);
+  const flatListRef = useRef(null);
 
-  // 🔥 Chat function (Gemini)
-  const chatting = async (userproblem) => {
-    const newHistory = [
-      ...history,
-      {
-        role: "user",
-        parts: [{ text: userproblem }],
-      },
-    ];
+  const router = useRouter();
 
-    setHistory(newHistory);
-
-    try {
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: newHistory,
-        config: {
-          systemInstruction: `
-You are a AI Assistant. , so answer to user queries in straight one or two lines,
-if user ask where is the library, just answer 'it's in the 2dn floor of A-Block building' if, where is the canteen then answer " it is in the ground floor of Boy's Hoostel"  now i will give only the answer but if user ask where then give answer of the location. 1.Girl's hostel is in top floor of B-block building.
-2. CSE department is in 3rd floor of B-block below girls hostel.
-3. civil department is in the 2nd floor of b-block building.
-4. mechinical department is in 1st floor of B-block building.
-5. Playground is in the center of the campus.
-6. electrical department is in the A-block building on 3rd floor.
-7. adminestrative block is in the A-block building ground floor.
-8. BBA department is in the underground of the A-block building.
-9. Hostel gate is just opposite of A-block building, just straight there is boys hostel.
-10. CSE department lab is in the ground floor of A-block building.
-11. Seminar hall (SH 3 is in the underground of A-Block building)
-12. Seminar hall (SH 2 is in the 2nd floor of B-Block building near civil department)
-13. Seminar hall (SH 1 is in the 1st floor of A-Block building)
-14. Library is in the 1st floor of A-block building.
-, Now i will tell you how to answer about the where or when user ask about the location then answer like this for example about CSE department " It's in 3rd floor of B-Block Building.", answer in straight line, no need to give the full length of the question, okey,
- ' never routh or make any disapointment to the user, never use slang words, it should be a friendly nature to the user. if you dont know the ans then tell them i dont n=know about this, we will work on this, for now visit other places, like in a friendly way okey.'
- 'keep yourself under the context of this only, you are only for guidance or to guuide user to locate the places,  if they ask any question which are not rrelivent to the context then answer, i am not train for this, i can help you only with the location which i was trained for, okey,' you can answer in that language the user asked, if hindi then answer in hindi but use english latters, if english then in english. use the user language to answer .
-`,
-        },
-      });
-
-      const text = response.text;
-
-      setHistory((prev) => [...prev, { role: "model", parts: [{ text }] }]);
-
-      return text;
-    } catch (err) {
-      return "Error: Something went wrong.";
-    }
+  const clearHistory = () => {
+    setMessages([
+      { id: "1", text: "Hey 👋 I am here to guide you!", sender: "bot" },
+    ]);
+    setHistory([]);
   };
 
-  // 🔥 Send message
+  // Sending msg here
   const sendMessage = async () => {
     if (!input.trim()) return;
 
-    const userMsg = {
-      id: Date.now().toString(),
-      text: input,
-      sender: "user",
-    };
-
-    setMessages((prev) => [...prev, userMsg]);
+    const userMsg = { id: Date.now().toString(), text: input, sender: "user" };
+    setMessages(prev => [...prev, userMsg]);
 
     const userInput = input;
     setInput("");
 
-    // temporary bot message
+    // show Typing.. animation
     const botId = Date.now().toString() + "bot";
+    setMessages(prev => [...prev, { id: botId, text: "Typing...", sender: "bot" }]);
 
-    setMessages((prev) => [
-      ...prev,
-      { id: botId, text: "Typing...", sender: "bot" },
-    ]);
+    try {
+      // send the last 10 history msgs
+      const limitedHistory = history.slice(-10);
 
-    const reply = await chatting(userInput);
+      const res = await fetch("http://192.168.0.101:5000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userInput, history: limitedHistory }),
+      });
 
-    // update bot message
-    setMessages((prev) =>
-      prev.map((msg) => (msg.id === botId ? { ...msg, text: reply } : msg)),
-    );
+      const data = await res.json();
+      let reply = data.reply || "No response from server.";
+
+      let actionData = null;
+      // Extract JSON if it exists
+      const jsonMatch = reply.match(/\{"action":\s*"SHOW_MAP".*\}/);
+      if (jsonMatch) {
+        try {
+          actionData = JSON.parse(jsonMatch[0]);
+          reply = reply.replace(jsonMatch[0], "").trim();
+        } catch (e) {
+          console.error("Failed to parse action JSON");
+        }
+      }
+
+      // msg history are update safely
+      setHistory(prev => [...prev, { role: "user", parts: [{ text: userInput }] }, { role: "model", parts: [{ text: reply }] }]);
+
+      // replace the Typing... animation with the reply
+      setMessages(prev => prev.map(m => m.id === botId ? { ...m, text: reply, actionData } : m));
+    } catch (err) {
+      setMessages(prev => prev.map(m => m.id === botId ? { ...m, text: "Cannot connect to server. Please check your network connection and try again." } : m));
+    }
   };
 
-  // 🔥 UI render
   const renderItem = ({ item }) => {
     const isUser = item.sender === "user";
 
     return (
-      <>
-        
-        <View
-          className={`max-w-[75%] px-4 py-3 my-2  rounded-2xl ${
-            isUser ? "bg-blue-600  self-end" : "bg-gray-800  self-start"
+      <View
+        className={`max-w-[75%] px-4 py-3 my-2 rounded-2xl ${isUser ? "bg-blue-600 self-end" : "bg-gray-800 self-start"
           }`}
-        >
-          <Text className="text-white text-xl">{item.text}</Text>
-        </View>
-      </>
+      >
+        <Text className="text-white text-base">{item.text}</Text>
+        {item.actionData && item.actionData.action === "SHOW_MAP" && (
+          <TouchableOpacity
+            className="mt-3 bg-white px-3 py-2 rounded-lg items-center"
+            onPress={() => router.push(
+              `/MapView?targetLat=${item.actionData.coordinates.latitude}&targetLng=${item.actionData.coordinates.longitude}`
+            )}
+          >
+            <Text className="text-blue-600 font-bold">🗺️ Show on Map</Text>
+          </TouchableOpacity>
+        )}
+      </View>
     );
   };
 
@@ -125,34 +105,49 @@ if user ask where is the library, just answer 'it's in the 2dn floor of A-Block 
     <KeyboardAvoidingView
       className="flex-1 bg-black px-4 pt-10"
       behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
     >
-      {/* Header */}
       <TopSpace />
-      <Text className="text-white text-3xl font-semibold mb-4">
-        AI Assistant 🤖
-      </Text>
 
-      {/* Chat */}
+      <View className="flex-row items-center justify-between mb-4">
+        <View className="flex-row items-center">
+          <TouchableOpacity onPress={() => router.back()} className="mr-3">
+            <Ionicons name="arrow-back" size={28} color="white" />
+          </TouchableOpacity>
+          <Text className="text-white text-3xl font-semibold">
+            AI Assistant 🤖
+          </Text>
+        </View>
+        <TouchableOpacity onPress={clearHistory} className="p-2 bg-red-600/80 rounded-full">
+          <Ionicons name="trash-outline" size={22} color="white" />
+        </TouchableOpacity>
+      </View>
+
       <FlatList
+        ref={flatListRef}
         data={messages}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
+        onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
+        onLayout={() => flatListRef.current?.scrollToEnd({ animated: false })}
       />
 
-      {/* Input */}
-      <View className="flex-row items-center bg-gray-900 rounded-full px-4 py-2 mb-4">
+      <View className="flex-row items-center bg-gray-900 rounded-full px-4 py-4 mb-4">
         <TextInput
           placeholder="Ask something..."
-          placeholderTextColor="#888"
+          placeholderTextColor="#9ca3af"
           value={input}
           onChangeText={setInput}
-          className="flex-1 text-white"
+          style={{ flex: 1, color: "#ffffff", fontSize: 18 }}
+          returnKeyType="send"
+          onSubmitEditing={sendMessage}
+          blurOnSubmit={false}
         />
 
         <TouchableOpacity
           onPress={sendMessage}
-          className="ml-2 bg-blue-600 px-4  py-2 rounded-full"
+          className="ml-2 bg-blue-600 px-4 py-2 rounded-full"
         >
           <Text className="text-white font-semibold">Send</Text>
         </TouchableOpacity>
