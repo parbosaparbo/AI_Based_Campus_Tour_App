@@ -74,7 +74,7 @@ const HelpSupportPage = () => {
           </View>
           <View className="flex-1">
             <Text className="text-white text-lg font-bold">Campus IT Desk</Text>
-            <Text className="text-blue-400 text-sm mt-1">itdesk@sitm.edu.in</Text>
+            <Text className="text-blue-400 text-sm mt-1">sitmguwahati@gmail.com</Text>
           </View>
           <Ionicons name="mail" size={24} color="#3b82f6" />
         </TouchableOpacity>
