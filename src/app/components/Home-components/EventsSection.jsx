@@ -1,5 +1,6 @@
 import { View, Text, FlatList } from 'react-native'
 import React, { useState, useEffect } from 'react'
+import { API_BASE_URL } from '../../apiConfig'
 
 const EventsSection = () => {
   const [events, setEvents] = useState([]);
@@ -7,7 +8,7 @@ const EventsSection = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await fetch("http://192.168.0.101:5000/api/events");
+        const res = await fetch(`${API_BASE_URL}/api/events`);
         const data = await res.json();
         setEvents(data);
       } catch (err) {

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Platform, Text, View, ScrollView, TouchableOpacity } from "react-native";
 import MapView, { Callout, Marker, Polyline } from "react-native-maps";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { API_BASE_URL } from "../../apiConfig";
 
 const categoryIcons = {
   All: "grid",
@@ -41,7 +42,7 @@ const MapPage = ({ width = "100%", targetLat, targetLng }) => {
 
   const fetchLocations = async () => {
     try {
-      const res = await fetch("http://192.168.0.101:5000/api/locations");
+      const res = await fetch(`${API_BASE_URL}/api/locations`);
       const data = await res.json();
       setLocations(data);
     } catch (error) {

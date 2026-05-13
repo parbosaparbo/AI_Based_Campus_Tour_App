@@ -11,6 +11,7 @@ import {
 import { useRouter } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import TopSpace from "../components/Fix-UI/TopSpace";
+import { API_BASE_URL } from "../apiConfig";
 
 export default function ChatBot() {
   const [messages, setMessages] = useState([
@@ -47,7 +48,7 @@ export default function ChatBot() {
       // send the last 10 history msgs
       const limitedHistory = history.slice(-10);
 
-      const res = await fetch("http://192.168.0.101:5000/chat", {
+      const res = await fetch(`${API_BASE_URL}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userInput, history: limitedHistory }),

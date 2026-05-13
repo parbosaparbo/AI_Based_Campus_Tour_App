@@ -4,6 +4,8 @@ import { useRouter } from 'expo-router'
 import Ionicons from "@expo/vector-icons/Ionicons";
 import TopSpace from './components/Fix-UI/TopSpace'
 
+import { API_BASE_URL } from './apiConfig'
+
 const EventsPage = () => {
   const [events, setEvents] = useState([]);
   const router = useRouter();
@@ -11,7 +13,7 @@ const EventsPage = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await fetch("http://192.168.0.101:5000/api/events");
+        const res = await fetch(`${API_BASE_URL}/api/events`);
         const data = await res.json();
         setEvents(data);
       } catch (err) {

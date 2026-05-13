@@ -1,5 +1,6 @@
 import { View, Text } from 'react-native'
 import React, { useState, useEffect } from 'react'
+import { API_BASE_URL } from '../../../apiConfig'
 
 const NoticeApp = () => {
   const [notice, setNotice] = useState("📢 Loading notices...");
@@ -7,7 +8,7 @@ const NoticeApp = () => {
   useEffect(() => {
     const fetchNotices = async () => {
       try {
-        const res = await fetch("http://192.168.0.101:5000/api/notices");
+        const res = await fetch(`${API_BASE_URL}/api/notices`);
         const data = await res.json();
         if (data && data.length > 0) {
           setNotice(`📢 ${data[0].title}: ${data[0].content}`);
