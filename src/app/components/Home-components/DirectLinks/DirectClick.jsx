@@ -7,22 +7,22 @@ const DirectClick = () => {
     const features = [
         {
             title: "Library",
-            bg: require('../../../../assets/images/wallpaper.webp'),
+            bg: require('../../../../assets/images/library.jpeg'),
             desc:"Central library with 1000's of Books.",
         },
         {
             title:"CSE Lab",
-            bg: require("../../../../assets/images/wallpaper.webp"),
+            bg: require("../../../../assets/images/cselab.jpg"),
             desc:"CSE lab for students to work and study.",
         },
         {
             title: "Playground",
-            bg: require('../../../../assets/images/wallpaper.webp'),
+            bg: require('../../../../assets/images/ground.jpeg'),
             desc:"Main sports and recreation area.",
         },
         {
             title:"Boy's Hostel",
-            bg: require("../../../../assets/images/wallpaper.webp"),
+            bg: require("../../../../assets/images/Hostel.webp"),
             desc:"Student accommodation facility.",
         },
     ]

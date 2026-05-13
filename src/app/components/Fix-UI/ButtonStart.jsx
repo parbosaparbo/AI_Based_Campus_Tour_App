@@ -29,7 +29,7 @@ const ButtonStart = () => {
 
   return (
     <Pressable onPress={handlePress}>
-        <Text className='text-black text-center font-bold w-36 text-2xl mx-3 rounded-lg py-2 bg-yellow-500'>
+        <Text className='text-black text-center font-bold w-36 text-xl mx-3 rounded-lg py-2 bg-yellow-500'>
           Start Tour   <Ionicons name='arrow-forward' size={20}/> 
         </Text>
     </Pressable>

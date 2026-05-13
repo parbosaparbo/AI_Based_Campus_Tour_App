@@ -9,25 +9,25 @@ const ShortsLinks = () => {
     {
       title: "Buildings",
       desc: "Explore campus Buildings.",
-      img: require("../../../assets/images/wallpaper.webp"),
+      img: require("../../../assets/images/building.jpg"),
       route: "/MapView"
     },
     {
       title: "Events",
       desc: "See upcoming events.",
-      img: require("../../../assets/images/wallpaper.webp"),
+      img: require("../../../assets/images/event.jpg"),
       route: "/EventsPage"
     },
     {
       title: "Map",
       desc: "Find your way around.",
-      img: require("../../../assets/images/wallpaper.webp"),
+      img: require("../../../assets/images/Maps.png"),
       route: "/MapView"
     },
     {
       title: "Links",
       desc: "Access useful resources.",
-      img: require("../../../assets/images/wallpaper.webp"),
+      img: require("../../../assets/images/links.png"),
       route: "/LinksPage"
     },
   ];
@@ -50,7 +50,7 @@ const ShortsLinks = () => {
           >
             <Image
               source={item.img}
-              className="w-12 h-12 mr-3"
+              className="w-12 h-12 mr-3 rounded-xl"
               resizeMode="contain"
             />
             <View className="flex-1">

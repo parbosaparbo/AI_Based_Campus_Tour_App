@@ -9,36 +9,36 @@ const spotData = {
     title: "Central Library",
     description: "The Central Library at SITM is the heart of academic resources on campus. It houses tens of thousands of books, technical journals, and e-resources to support research and coursework. The peaceful reading rooms provide an excellent environment for focused study and group discussions.",
     images: [
-      require('../assets/images/wallpaper.webp'),
-      require('../assets/images/wallpaper.webp'),
-      require('../assets/images/wallpaper.webp'),
+      require('../assets/images/library.jpeg'),
+      require('../assets/images/library.jpeg'),
+      require('../assets/images/library.jpeg'),
     ]
   },
   "CSE Lab": {
     title: "CSE Laboratory",
     description: "Our state-of-the-art Computer Science & Engineering labs are equipped with high-performance workstations and high-speed internet. Students get hands-on experience with the latest software development tools, AI frameworks, and networking technologies in an immersive environment.",
     images: [
-      require('../assets/images/wallpaper.webp'),
-      require('../assets/images/wallpaper.webp'),
-      require('../assets/images/wallpaper.webp'),
+      require('../assets/images/cselab.jpg'),
+      require('../assets/images/cselab.jpg'),
+      require('../assets/images/cselab.jpg'),
     ]
   },
   "Playground": {
     title: "Main Playground",
     description: "The Campus Playground is the central hub for sports and extracurricular activities. Featuring a full-sized football field, cricket pitch, and running track, it's the perfect place to stay fit, unwind after classes, or participate in the annual intra-college tournaments.",
     images: [
-      require('../assets/images/wallpaper.webp'),
-      require('../assets/images/wallpaper.webp'),
-      require('../assets/images/wallpaper.webp'),
+      require('../assets/images/ground.jpeg'),
+      require('../assets/images/ground.jpeg'),
+      require('../assets/images/ground.jpeg'),
     ]
   },
   "Boy's Hostel": {
     title: "Boys' Hostel",
     description: "The Boys' Hostel offers comfortable accommodation with modern amenities ensuring a home-away-from-home experience. With 24/7 security, high-speed Wi-Fi, a mess serving nutritious meals, and common recreation rooms, it fosters a vibrant and inclusive student community.",
     images: [
-      require('../assets/images/wallpaper.webp'),
-      require('../assets/images/wallpaper.webp'),
-      require('../assets/images/wallpaper.webp'),
+      require('../assets/images/Hostel.webp'),
+      require('../assets/images/Hostel.webp'),
+      require('../assets/images/Hostel.webp'),
     ]
   }
 };

@@ -12,9 +12,8 @@ const AISearchBox = () => {
         className='h-44 rounded-3xl'
         >
         <Text className='text-3xl py-2 px-4 font-extrabold'>Campus Tour</Text>
-        <View className='flex my-14'>
+        <View className='flex my-14 '>
         <ButtonStart/>
-
         </View>
         </ImageBackground>
       </View> 
