@@ -48,14 +48,13 @@ const SpotDetails = () => {
   const { title } = useGlobalSearchParams();
   const { width } = Dimensions.get("screen");
   
-  // Fallback to library if title is missing or invalid
   const data = spotData[title] || spotData["Library"];
 
   return (
     <View className="flex-1 bg-black">
       <TopSpace />
       
-      {/* Header */}
+      {/* header section */}
       <View className="flex-row items-center px-4 mb-4 z-50">
         <TouchableOpacity onPress={() => router.back()} className="mr-3 bg-gray-800 p-2 rounded-full">
           <Ionicons name="arrow-back" size={24} color="white" />
@@ -64,7 +63,7 @@ const SpotDetails = () => {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} className="px-4">
-        {/* Photo Gallery */}
+        {/* photo gallery shown here */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-6 rounded-2xl overflow-hidden">
           {data.images.map((img, idx) => (
             <Image 
@@ -77,7 +76,7 @@ const SpotDetails = () => {
           ))}
         </ScrollView>
 
-        {/* Description Section */}
+        {/* description section of photos shown */}
         <View className="bg-zinc-900 p-5 rounded-3xl border border-zinc-800 shadow-xl mb-10">
           <Text className="text-white text-3xl font-extrabold mb-3">About {title}</Text>
           <Text className="text-gray-300 text-base leading-7">

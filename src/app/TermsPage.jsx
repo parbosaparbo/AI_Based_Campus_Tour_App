@@ -50,7 +50,7 @@ const TermsPage = () => {
     <View className="flex-1 bg-black px-4">
       <TopSpace />
 
-      {/* Header */}
+      {/* header part of the code */}
       <View className="flex-row items-center mb-6 z-50 mt-4">
         <TouchableOpacity onPress={() => router.back()} className="mr-3 bg-zinc-800 p-2 rounded-full">
           <Ionicons name="arrow-back" size={24} color="white" />
@@ -60,7 +60,6 @@ const TermsPage = () => {
 
       <ScrollView showsVerticalScrollIndicator={false}>
 
-        {/* Effective Date Banner */}
         <View className="bg-blue-500/15 border border-blue-500/30 rounded-2xl px-4 py-3 mb-6 flex-row items-center">
           <Ionicons name="document-text-outline" size={20} color="#3b82f6" />
           <Text className="text-blue-400 text-sm ml-3">Effective Date: May 1, 2025 · Version 1.0</Text>
@@ -76,7 +75,7 @@ const TermsPage = () => {
           </View>
         ))}
 
-        {/* Footer */}
+        {/* footer section  */}
         <View className="items-center mb-12 mt-4">
           <Text className="text-zinc-600 text-xs text-center">© 2025 SITM Guwahati. All rights reserved.</Text>
         </View>

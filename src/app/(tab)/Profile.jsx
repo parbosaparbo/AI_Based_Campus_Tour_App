@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import TopSpace from "../components/Fix-UI/TopSpace";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
+import Logo from "../components/ProofileComponents/Logo";
 
 const Profile = () => {
   const router = useRouter();
@@ -51,17 +52,18 @@ const Profile = () => {
 
       <ScrollView showsVerticalScrollIndicator={false} className="pb-10">
         
-        {/* App Branding Card */}
+        {/* Logo of the app is here */}
         <View className="items-center bg-zinc-900 rounded-3xl p-6 mb-6 border border-zinc-800 shadow-xl">
           <View className="w-20 h-20 bg-blue-500/20 rounded-2xl items-center justify-center mb-4">
-            <Ionicons name="map" size={40} color="#3b82f6" />
+            {/* <Ionicons name="out-map" size={40} color="#3b82f6" /> */}
+            <Logo />
           </View>
           <Text className="text-white text-2xl font-bold">SITMap</Text>
           <Text className="text-gray-400 text-sm mt-1 text-center">Your Ultimate Campus Guide</Text>
-          <Text className="text-gray-500 text-xs mt-4">Version 1.0.0</Text>
+          {/* <Text className="text-gray-500 text-xs mt-4">Version 1.0.0</Text> */}
         </View>
 
-        {/* General Section */}
+        {/* General section setting */}
         <Text className="text-gray-400 font-bold mb-3 ml-2 uppercase text-xs tracking-wider">General</Text>
         <SettingRow 
           icon="map" 
@@ -76,7 +78,7 @@ const Profile = () => {
           onPress={() => router.push('/FavoritesPage')}
         />
         
-        {/* Preferences Section */}
+        {/* Preferences section like dark mode notification */}
         <Text className="text-gray-400 font-bold mb-3 mt-4 ml-2 uppercase text-xs tracking-wider">Preferences</Text>
         <SettingRow 
           icon="moon" 
@@ -103,7 +105,7 @@ const Profile = () => {
           }}
         />
 
-        {/* Support Section */}
+        {/* Support section of setting */}
         <Text className="text-gray-400 font-bold mb-3 mt-4 ml-2 uppercase text-xs tracking-wider">Support</Text>
         <SettingRow 
           icon="help-buoy" 
@@ -118,7 +120,7 @@ const Profile = () => {
           onPress={() => router.push('/LinksPage')}
         />
 
-        {/* Share App Button */}
+        {/* Share app section of setting */}
         <TouchableOpacity 
           className="bg-blue-500/20 py-4 rounded-2xl flex-row justify-center items-center mt-6 border border-blue-500/30"
           onPress={() => Alert.alert("Share", "Share SITMap with your friends!")}
@@ -127,7 +129,7 @@ const Profile = () => {
           <Text className="text-blue-500 font-bold text-lg">Share App</Text>
         </TouchableOpacity>
 
-        {/* Terms & Conditions */}
+        {/* Terms & conditions is here */}
         <TouchableOpacity
           className="flex-row items-center justify-center py-4 mt-3 mb-10"
           onPress={() => router.push('/TermsPage')}
@@ -135,6 +137,7 @@ const Profile = () => {
           <Ionicons name="document-text-outline" size={16} color="#52525b" />
           <Text className="text-zinc-500 text-sm ml-2">Terms & Conditions</Text>
         </TouchableOpacity>
+        <Text className="text-gray-500  text-xs text-center mt-0 mb-2">Version 1.0.0</Text>
 
       </ScrollView>
     </View>

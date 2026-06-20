@@ -51,7 +51,7 @@ const LinksPage = () => {
     <View className="flex-1 bg-black px-4">
       <TopSpace />
 
-      {/* Top Header with Back Button */}
+      {/* top header with back button at left top */}
       <View className="flex-row items-center mb-6 z-50">
         <TouchableOpacity onPress={() => router.back()} className="mr-3 bg-gray-800 p-2 rounded-full">
           <Ionicons name="arrow-back" size={24} color="white" />

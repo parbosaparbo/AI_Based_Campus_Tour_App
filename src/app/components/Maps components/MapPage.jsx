@@ -16,6 +16,7 @@ const MapPage = ({ width = "100%", targetLat, targetLng }) => {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [locations, setLocations] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [is3D, setIs3D] = useState(false);
   const mapRef = useRef(null);
 
   const playgroundCoords = { latitude: 26.090660, longitude: 91.724605 };
@@ -79,6 +80,20 @@ const MapPage = ({ width = "100%", targetLat, targetLng }) => {
     routeBearing = getBearing(playgroundCoords.latitude, playgroundCoords.longitude, destLat, destLng);
   }
 
+  const toggle3D = async () => {
+    if (mapRef.current) {
+      const nextIs3D = !is3D;
+      try {
+        const camera = await mapRef.current.getCamera();
+        camera.pitch = nextIs3D ? 60 : 0;
+        mapRef.current.animateCamera(camera, { duration: 500 });
+        setIs3D(nextIs3D);
+      } catch (error) {
+        console.error("Failed to animate camera for 3D mode", error);
+      }
+    }
+  };
+
   return (
     <View style={{ flex: 1, width }} className="relative">
 
@@ -122,6 +137,8 @@ const MapPage = ({ width = "100%", targetLat, targetLng }) => {
             ref={mapRef}
             style={{ width: "100%", height: "100%" }}
             mapType={Platform.OS === "ios" ? "hybridFlyover" : "hybrid"}
+            showsBuildings={true}
+            pitchEnabled={true}
             initialRegion={{
               latitude: 26.090829,
               longitude: 91.725019,
@@ -208,6 +225,14 @@ const MapPage = ({ width = "100%", targetLat, targetLng }) => {
               </Marker>
             ))}
           </MapView>
+          
+          <TouchableOpacity
+            onPress={toggle3D}
+            className="absolute bottom-6 right-6 p-3 rounded-full shadow-lg elevation-5 flex-row items-center justify-center border border-gray-200"
+            style={{ backgroundColor: is3D ? '#3b82f6' : 'white' }}
+          >
+            <Ionicons name={is3D ? "cube" : "map"} size={24} color={is3D ? "white" : "#374151"} />
+          </TouchableOpacity>
         </View>
       )}
     </View>

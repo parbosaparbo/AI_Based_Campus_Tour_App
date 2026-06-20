@@ -1,6 +1,6 @@
 import { View, Text, FlatList } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import { API_BASE_URL } from '../../apiConfig'
+import { API_BASE_URL } from '../../../apiConfig'
 
 const EventsSection = () => {
   const [events, setEvents] = useState([]);

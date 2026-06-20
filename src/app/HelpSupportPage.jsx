@@ -38,7 +38,7 @@ const HelpSupportPage = () => {
 
       <ScrollView showsVerticalScrollIndicator={false}>
         
-        {/* Search Bar */}
+        {/* search box section */}
         <View className="bg-zinc-900 flex-row items-center rounded-2xl px-4 py-3 mb-6 border border-zinc-800">
           <Ionicons name="search" size={20} color="#9ca3af" />
           <TextInput 
@@ -50,7 +50,7 @@ const HelpSupportPage = () => {
           />
         </View>
 
-        {/* FAQs Section */}
+        {/* FAQs section */}
         <Text className="text-gray-400 font-bold mb-4 ml-2 uppercase text-xs tracking-wider">Instructions & FAQ</Text>
         {filteredFaqs.length > 0 ? (
           filteredFaqs.map((faq, index) => (
@@ -63,7 +63,7 @@ const HelpSupportPage = () => {
           <Text className="text-gray-500 text-center my-6">No matching instructions found.</Text>
         )}
 
-        {/* IT Desk Contact */}
+        {/* IT desk contact */}
         <Text className="text-gray-400 font-bold mt-6 mb-4 ml-2 uppercase text-xs tracking-wider">Contact Us</Text>
         <TouchableOpacity 
           className="bg-blue-600/20 rounded-3xl p-5 border border-blue-500/30 flex-row items-center mb-10"
